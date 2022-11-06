@@ -1,6 +1,7 @@
 package com.idfc.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.idfc.model.User;
 
@@ -11,11 +12,11 @@ public interface UserService {
 	
 	public List<User> getUsers();
 	
-	public User getUserById(int id);
+	public Optional<User> getUserById(int id);
 	
 	public User getUserByEmail(String email);
 	
-	public User updatePassword(int userId, String oldPassword, String newPassword);
+	public User updatePassword(String email, String oldPassword, String newPassword);
 	
 	public User updateUser(User user);
 	

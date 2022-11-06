@@ -23,8 +23,7 @@ public class User {
 	
 	@Column(nullable = false)
 	private String gender;
-	
-	
+
 	private String address;
 	
 	@Column(nullable = false)
@@ -32,14 +31,6 @@ public class User {
 	
 	@Column(nullable = false)
 	private String email;
-	
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	@Column(nullable = false)
 	private long phno;
@@ -54,9 +45,13 @@ public class User {
 	@Column(nullable = false)
 	private String password;
 
-	public User() {
-		super();
-		//TODO Auto-generated constructor stub
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public int getUserId() {
@@ -139,5 +134,24 @@ public class User {
 		this.password = password;
 	}
 	
+	public User() {
+		super();
+		//TODO Auto-generated constructor stub
+	}
 	
+	public User(int userId, String name, String gender, String address, String city, String email, long phno,
+			String education, String dept, String userType, String password) {
+		super();
+		this.userId = userId;
+		this.name = name;
+		this.gender = gender;
+		this.address = address;
+		this.city = city;
+		this.email = email;
+		this.phno = phno;
+		this.education = education;
+		this.dept = dept;
+		this.userType = userType;
+		this.password = password;
+	}
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -24,6 +25,11 @@ public class UserController {
 
 	@Autowired
 	private UserServiceImpl service;
+	
+	@GetMapping("/hello")
+	public String hello() {
+		return "Hello";
+	}
 	
 	@PostMapping("/")
 	public ResponseEntity<Object> addUser(@RequestBody User user){
@@ -42,17 +48,26 @@ public class UserController {
 	
 	@GetMapping("/{userId}")
 	public ResponseEntity<Object> getUserById(@PathVariable int userId){
-		User resUser = this.service.getUserById(userId);
+		User resUser = this.service.getUserById(userId).get();
 		if(resUser == null) {
 			return new ResponseEntity<Object>("User not found", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Object>(resUser, HttpStatus.OK);
 	}
 	
+	@GetMapping("/email")
+	public ResponseEntity<Object> getUserByEmail(@RequestParam String email){
+		User res = service.getUserByEmail(email);
+		if(res == null) {
+			return new ResponseEntity<Object>("User not found", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Object>(res, HttpStatus.OK);
+	}
+	
 	@PatchMapping("/updatePassword")
 	public ResponseEntity<Object> updatePassword(@RequestBody Map<String, Object> body){
 		User resUser = this.service.updatePassword(
-				(Integer)body.get("userId"), 
+				body.get("email").toString(), 
 				body.get("oldPassword").toString(), 
 				body.get("newPassword").toString());
 		

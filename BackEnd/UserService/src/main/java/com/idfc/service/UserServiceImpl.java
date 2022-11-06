@@ -1,6 +1,7 @@
 package com.idfc.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.idfc.dao.UserRepository;
 import com.idfc.model.User;
@@ -13,6 +14,16 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private UserRepository repo;
+
+	public UserServiceImpl(UserRepository repo) {
+		super();
+		this.repo = repo;
+	}
+
+	public UserServiceImpl() {
+		super();
+		//TODO Auto-generated constructor stub
+	}
 
 	@Override
 	public User addUser(User user) {
@@ -29,24 +40,21 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User getUserById(int id) {
-		return this.repo.findById(id).get();
+	public Optional<User> getUserById(int id) {
+		return this.repo.findById(id);
 	}
 
 	@Override
 	public User getUserByEmail(String email) {
-		List<User> users = this.repo.findAll();
-		for(User user : users) {
-			if(user.getEmail().equals(email)) {
-				return user;
-			}
-		}
-		return null;
+		return repo.findByEmail(email);
 	}
 
 	@Override
-	public User updatePassword(int userId, String oldPassword, String newPassword) {
-		User resUser = this.getUserById(userId);
+	public User updatePassword(String email, String oldPassword, String newPassword) {
+//		User resUser = this.getUserById(userId).isPresent() 
+//				? this.getUserById(userId).get()
+//				: null;
+		User resUser = repo.findByEmail(email);
 		if(resUser == null || !resUser.getPassword().equals(oldPassword)) {
 			return null;
 		}
@@ -56,28 +64,28 @@ public class UserServiceImpl implements UserService {
 	
 	@Override
 	public User updateUserType(int userId, int userIdToUpdate) {
-		User adminUser = this.getUserById(userId);
-		if(adminUser == null || !adminUser.getUserType().equals("admin")) {
+		Optional<User> adminUser = repo.findById(userId);
+		if(adminUser.get() == null || !adminUser.get().getUserType().equals("admin")) {
 			return null;
 		}
-		User updateUser = this.getUserById(userIdToUpdate);
-		if(updateUser == null) {
+		Optional<User> updateUser = repo.findById(userIdToUpdate);
+		if(updateUser.get() == null) {
 			return null;
 		}
 		
-		if(updateUser.getUserType().equals("patient")) {
-			updateUser.setUserType("doctor");
+		if(updateUser.get().getUserType().equals("patient")) {
+			updateUser.get().setUserType("doctor");
 		}
 		else {
-			updateUser.setUserType("patient");
+			updateUser.get().setUserType("patient");
 		}
 		
-		return this.repo.save(updateUser);
+		return this.repo.save(updateUser.get());
 	}
 
 	@Override
 	public User updateUser(User user) {
-		User updateUser = this.getUserById(user.getUserId());
+		User updateUser = this.getUserById(user.getUserId()).get();
 		updateUser.setAddress(user.getAddress());
 		updateUser.setCity(user.getCity());
 		updateUser.setDept(user.getDept());
@@ -89,8 +97,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String deleteUser(int id) {
-		User resUser = this.getUserById(id);
-		if(resUser == null) {
+		Optional<User> resUser = repo.findById(id);
+		if(resUser.get() == null) {
 			return null;
 		}
 		this.repo.deleteById(id);
