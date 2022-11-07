@@ -7,20 +7,20 @@ import com.idfc.model.User;
 
 
 public interface UserService {
+	
+	public String hello();
 
 	public User addUser(User user);
 	
 	public List<User> getUsers();
 	
-	public Optional<User> getUserById(int id);
+	public Optional<User> getUserById(long id);
 	
 	public User getUserByEmail(String email);
 	
 	public User updatePassword(String email, String oldPassword, String newPassword);
 	
-	public User updateUser(User user);
+	public User updateUserType(long userId, long userIdToUpdate);
 	
-	public User updateUserType(int userId, int userIdToUpdate);
-	
-	public String deleteUser(int id);
+	public String deleteUser(long id);
 }

@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.idfc.model.User;
-import com.idfc.service.UserServiceImpl;
+import com.idfc.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,11 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
 
 	@Autowired
-	private UserServiceImpl service;
+	private UserService service;
 	
 	@GetMapping("/hello")
 	public String hello() {
-		return "Hello";
+		return service.hello();
 	}
 	
 	@PostMapping("/")
@@ -47,7 +47,7 @@ public class UserController {
 	}
 	
 	@GetMapping("/{userId}")
-	public ResponseEntity<Object> getUserById(@PathVariable int userId){
+	public ResponseEntity<Object> getUserById(@PathVariable long userId){
 		User resUser = this.service.getUserById(userId).get();
 		if(resUser == null) {
 			return new ResponseEntity<Object>("User not found", HttpStatus.NOT_FOUND);
@@ -79,7 +79,7 @@ public class UserController {
 	}
 	
 	@PatchMapping("/updateUserType/{adminId}/{userId}")
-	public ResponseEntity<Object> updateUserType(@PathVariable int adminId, @PathVariable int userId){
+	public ResponseEntity<Object> updateUserType(@PathVariable long adminId, @PathVariable long userId){
 		User res = this.service.updateUserType(adminId, userId);
 		if(res == null) {
 			return new ResponseEntity<Object>("User type not updated sucessfully", HttpStatus.INTERNAL_SERVER_ERROR);
@@ -88,7 +88,7 @@ public class UserController {
 	}
 	
 	@DeleteMapping("/{userId}")
-	public ResponseEntity<Object> removeUser(@PathVariable int userId){
+	public ResponseEntity<Object> removeUser(@PathVariable long userId){
 		String res = this.service.deleteUser(userId);
 		if(res == null) {
 			return new ResponseEntity<Object>("user not deleted !", HttpStatus.NOT_ACCEPTABLE);
