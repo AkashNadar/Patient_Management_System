@@ -40,7 +40,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Optional<User> getUserById(int id) {
+	public Optional<User> getUserById(long id) {
 		return this.repo.findById(id);
 	}
 
@@ -63,9 +63,9 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public User updateUserType(int userId, int userIdToUpdate) {
+	public User updateUserType(long userId, long userIdToUpdate) {
 		Optional<User> adminUser = repo.findById(userId);
-		if(adminUser.get() == null || !adminUser.get().getUserType().equals("admin")) {
+		if(adminUser.get() == null || !adminUser.get().getRole().equals("admin")) {
 			return null;
 		}
 		Optional<User> updateUser = repo.findById(userIdToUpdate);
@@ -73,36 +73,30 @@ public class UserServiceImpl implements UserService {
 			return null;
 		}
 		
-		if(updateUser.get().getUserType().equals("patient")) {
-			updateUser.get().setUserType("doctor");
+		if(updateUser.get().getRole().equals("patient")) {
+			updateUser.get().setRole("doctor");
 		}
 		else {
-			updateUser.get().setUserType("patient");
+			updateUser.get().setRole("patient");
 		}
 		
 		return this.repo.save(updateUser.get());
 	}
 
 	@Override
-	public User updateUser(User user) {
-		User updateUser = this.getUserById(user.getUserId()).get();
-		updateUser.setAddress(user.getAddress());
-		updateUser.setCity(user.getCity());
-		updateUser.setDept(user.getDept());
-		updateUser.setEducation(user.getDept());
-		updateUser.setName(user.getName());
-		updateUser.setPhno(user.getPhno());
-		return null;
-	}
-
-	@Override
-	public String deleteUser(int id) {
+	public String deleteUser(long id) {
 		Optional<User> resUser = repo.findById(id);
 		if(resUser.get() == null) {
 			return null;
 		}
 		this.repo.deleteById(id);
 		return "User deleted sucessfully";
+	}
+
+	@Override
+	public String hello() {
+		// TODO Auto-generated method stub
+		return "Hello";
 	}
 
 	
