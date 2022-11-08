@@ -37,11 +37,11 @@ public class Diagnosis {
 		this.expertComments = expertComments;
 	}
 
-	public long getId() {
+	public long getid() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setid(long id) {
 		this.id = id;
 	}
 
@@ -68,6 +68,5 @@ public class Diagnosis {
 	public void setPrescription(Prescription prescription) {
 		this.prescription = prescription;
 	} 
-	
 	
 }

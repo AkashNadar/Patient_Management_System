@@ -10,8 +10,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-//import org.hibernate.annotations.ColumnDefault;
-
 
 @Entity
 @Table(name = "prescription_details")
@@ -75,6 +73,5 @@ public class Prescription {
 	public void setDiagnosis(Diagnosis diagnosis) {
 		this.diagnosis = diagnosis;
 	}
-	
 	
 }
