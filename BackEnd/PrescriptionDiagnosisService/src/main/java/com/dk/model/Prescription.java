@@ -1,39 +1,49 @@
 package com.dk.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 //import org.hibernate.annotations.ColumnDefault;
 
 
 @Entity
-@Table(name = "prescriptiondiagnosis")
-public class prescDiag {
+@Table(name = "prescription_details")
+public class Prescription {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int prescId;
-	
+
 	@Column(nullable = false)
 	private int patientId;
 	
 	@Column(nullable = false)
 	private String prescDetails;
 	
-	@Column(nullable = false)
-	private int diagnosisId;
+	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "diagnosis_id", referencedColumnName = "id")
+	private Diagnosis diagnosis;
 	
-	@Column(nullable = false)
-	private String diagnosisTitle;
+	public Prescription() {
+		super();
+		//TODO Auto-generated constructor stub
+	}
 
-	@Column(nullable = false)
-	
-	private String expertComments;
-	
+	public Prescription(int prescId, int patientId, String prescDetails, Diagnosis diagnosis) {
+		super();
+		this.prescId = prescId;
+		this.patientId = patientId;
+		this.prescDetails = prescDetails;
+		this.diagnosis = diagnosis;
+	}
+
 	public int getPrescId() {
 		return prescId;
 	}
@@ -58,28 +68,13 @@ public class prescDiag {
 		this.prescDetails = prescDetails;
 	}
 
-	public int getDiagnosisId() {
-		return diagnosisId;
+	public Diagnosis getDiagnosis() {
+		return diagnosis;
 	}
 
-	public void setDiagnosisId(int diagnosisId) {
-		this.diagnosisId = diagnosisId;
+	public void setDiagnosis(Diagnosis diagnosis) {
+		this.diagnosis = diagnosis;
 	}
-
-	public String getDiagnosisTitle() {
-		return diagnosisTitle;
-	}
-
-	public void setDiagnosisTitle(String diagnosisTitle) {
-		this.diagnosisTitle = diagnosisTitle;
-	}
-
-	public String getExpertComments() {
-		return expertComments;
-	}
-
-	public void setExpertComments(String expertComments) {
-		this.expertComments = expertComments;
-	}
+	
 	
 }

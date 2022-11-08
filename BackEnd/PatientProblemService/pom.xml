@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.idfc</groupId>
-	<artifactId>UserService</artifactId>
+	<artifactId>PatientProblemService</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>UserService</name>
+	<name>PatientProblemService</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>11</java.version>
