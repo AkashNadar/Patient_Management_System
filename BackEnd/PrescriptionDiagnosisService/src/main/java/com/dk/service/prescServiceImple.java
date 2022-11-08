@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.dk.dao.prescRepository;
+import com.dk.model.Diagnosis;
 import com.dk.model.Prescription;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,11 +52,17 @@ public class prescServiceImple implements prescService {
 	}
 	
 	@Override
-	public Prescription updatePrescription(int prescId, String prescription) {
-		Optional<Prescription> resPrescription = repo.findById(prescId);
-		if(resPrescription.get() == null) {
+	public Prescription updatePrescription(Prescription prescription, int patientId) {
+		Prescription resPrescription = repo.findByPatientId(patientId);
+		if(resPrescription == null) {
 			return null;
 		}
-		return this.repo.save(resPrescription.get());
+		Diagnosis resDiagnosis = resPrescription.getDiagnosis();
+		Diagnosis diagnosis = prescription.getDiagnosis();
+		resDiagnosis.setDiagnosisTitle(diagnosis.getDiagnosisTitle());
+		resDiagnosis.setExpertComments(diagnosis.getExpertComments());
+		resPrescription.setDiagnosis(resDiagnosis);
+		resPrescription.setPrescDetails(prescription.getPrescDetails());
+		return repo.save(resPrescription);
 	}
 }

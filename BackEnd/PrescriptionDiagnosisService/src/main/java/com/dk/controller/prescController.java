@@ -60,12 +60,9 @@ public class prescController {
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}
 	
-	//to be Modified
-	@PutMapping("/")
-	public ResponseEntity<Object> updatePrescription(@RequestBody Map<String, Object> body){
-		Prescription res = this.service.updatePrescription(
-				(Integer)body.get("prescId"),
-				body.get("prescription").toString());
+	@PutMapping("/{patientId}")
+	public ResponseEntity<Object> updatePrescription(@RequestBody Prescription prescription,@PathVariable int patientId){
+		Prescription res = this.service.updatePrescription(prescription, patientId);
 		if(res == null) {
 			return new ResponseEntity<Object>("Prescription not updated", HttpStatus.NOT_ACCEPTABLE);
 		}
