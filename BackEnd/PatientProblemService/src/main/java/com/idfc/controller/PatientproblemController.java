@@ -1,10 +1,9 @@
 package com.idfc.controller;
 
 import java.util.List;
-import java.util.Map;
 
-import com.idfc.model.Patient;
-import com.idfc.service.PatientProblemServiceImpl;
+import com.idfc.model.PatientProblem;
+import com.idfc.service.PatientProblemService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,78 +18,52 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/patientProblem")
 public class PatientproblemController {
 
 	@Autowired
-	private PatientProblemServiceImpl service;
+	private PatientProblemService service;
 	
-	@PostMapping("/addPatient")
-	public ResponseEntity<Object> addUser(@RequestBody Patient patient){
-		Patient resUser = this.service.addPatient(patient);
-		if(resUser == null) {
-			return new ResponseEntity<Object>("User not add Sucessfully", HttpStatus.CONFLICT);
+	@PostMapping("/")
+	public ResponseEntity<Object> addPatientProblem(@RequestBody PatientProblem patientProblem){
+		PatientProblem resProblem = this.service.addPatientProblem(patientProblem);
+		if(resProblem == null) {
+			return new ResponseEntity<Object>("Patient Problem not added Sucessfully", HttpStatus.CONFLICT);
 		}
-		return new ResponseEntity<Object>(resUser, HttpStatus.CREATED);
+		return new ResponseEntity<Object>(resProblem, HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/")
-	public ResponseEntity<Object> getAllUsers(){
-		List<Patient> patients = this.service.getPatient();
-		return new ResponseEntity<Object>(patients, HttpStatus.OK);
+	public ResponseEntity<Object> getAllPatientProblems(){
+		List<PatientProblem> res = this.service.getPatientProblem();
+		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}
 	
 	@GetMapping("/{patientId}")
-	public ResponseEntity<Object> getUserById(@PathVariable int patientId){
-		Patient resUser = this.service.getProblemById(patientId);
+	public ResponseEntity<Object> getPatientProblemByPatientId(@PathVariable long patientId){
+		PatientProblem resUser = this.service.getPatientProblemByUserId(patientId);
 		if(resUser == null) {
-			return new ResponseEntity<Object>("User not found", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<Object>("patient problem not found", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Object>(resUser, HttpStatus.OK);
 	}
 	
-	@PatchMapping("/patientId")
-	public ResponseEntity<Object> updatePassword(@RequestBody Map<String, Object> body){
-		Patient resUser = this.service.updatePatient(
-				(Integer)body.get("problemId"), 
-				body.get("patientId").toString());
+	@PatchMapping("/{patientId}")
+	public ResponseEntity<Object> updatePatientProblem(@RequestBody PatientProblem patientProblem, @PathVariable long patientId){
+		PatientProblem resUser = this.service.updatePatientProblem(patientProblem, patientId);
 		
 		if(resUser == null) {
-			return new ResponseEntity<Object>("patientId updation failed", HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<Object>("patient problem updation failed", HttpStatus.NOT_ACCEPTABLE);
 		}
 		
-		return new ResponseEntity<Object>("patientId updated sucessfully", HttpStatus.OK);
+		return new ResponseEntity<Object>("patient problem updated sucessfully", HttpStatus.OK);
 	}
-	
-	@PatchMapping("/sympoms")
-	public ResponseEntity<Object> updateSympoms(@RequestBody Map<String, Object> body){
-		Patient resUser = this.service.updatePatient(
-				(Integer)body.get("problemId"), 
-				body.get("sympoms").toString());
-		
-		if(resUser == null) {
-			return new ResponseEntity<Object>("sympoms updation failed", HttpStatus.NOT_ACCEPTABLE);
-		}
-		
-		return new ResponseEntity<Object>("sympoms updated sucessfully", HttpStatus.OK);
-	}
-	
-	@PostMapping("/udatePatient")
-	public ResponseEntity<Object> udatePatient(@RequestBody Patient patient){
-		Patient resUser = this.service.updatePatient(patient);
-		if(resUser == null) {
-			return new ResponseEntity<Object>("User not add Sucessfully", HttpStatus.CONFLICT);
-		}
-		return new ResponseEntity<Object>(resUser, HttpStatus.CREATED);
-	}
-	
-	
 	
 	@DeleteMapping("/{patientId}")
-	public ResponseEntity<Object> removeUser(@PathVariable int patientId){
-		String res = this.service.deleteUser(patientId);
+	public ResponseEntity<Object> removePatientProblem(@PathVariable long patientId){
+		String res = this.service.deletePatientProblem(patientId);
 		if(res == null) {
-			return new ResponseEntity<Object>("patient not deleted !", HttpStatus.NOT_ACCEPTABLE);
+			return new ResponseEntity<Object>("patient problem not deleted !", HttpStatus.NOT_ACCEPTABLE);
 		}
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}

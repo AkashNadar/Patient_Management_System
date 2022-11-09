@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.dk.dao.prescRepository;
+import com.dk.model.Diagnosis;
 import com.dk.model.Prescription;
 import com.dk.model.Diagnosis;
 import org.springframework.beans.factory.annotation.Autowired;

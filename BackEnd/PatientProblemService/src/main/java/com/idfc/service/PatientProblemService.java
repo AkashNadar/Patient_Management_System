@@ -1,23 +1,22 @@
 package com.idfc.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import com.idfc.model.Patient;
+import com.idfc.model.PatientProblem;
 
 
 public interface PatientProblemService {
 
-	public Patient addPatient(Patient user);
+	public PatientProblem addPatientProblem(PatientProblem patientProblem);
 	
-	public List<Patient> getPatient();
+	public List<PatientProblem> getPatientProblem();
 	
-	public Patient getProblemById(int id);
+	public Optional<PatientProblem> getPatientProblemById(long id);
 	
-	public Patient updatePatient(int problemId, String patientId);
+	public PatientProblem getPatientProblemByUserId(long id);
 	
-	public Patient updateSympoms(int problemId, String sympoms);
+	public PatientProblem updatePatientProblem(PatientProblem patientProblem, long patientId);
 	
-	public Patient updatePatient(Patient patient);
-	
-	public String deleteUser(int id);
+	public String deletePatientProblem(long patientId);
 }

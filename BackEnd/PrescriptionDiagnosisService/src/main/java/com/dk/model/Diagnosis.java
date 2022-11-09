@@ -20,6 +20,10 @@ public class Diagnosis {
 	
 	@Column(nullable = false)
 	private String expertComments;
+<<<<<<< HEAD
+=======
+	
+>>>>>>> 310518e9712a1da440ff1fa1a1a4572ab9355328
 
 	public Diagnosis() {
 		super();
@@ -56,5 +60,9 @@ public class Diagnosis {
 	public void setExpertComments(String expertComments) {
 		this.expertComments = expertComments;
 	}
+<<<<<<< HEAD
+=======
+ 
+>>>>>>> 310518e9712a1da440ff1fa1a1a4572ab9355328
 	
 }

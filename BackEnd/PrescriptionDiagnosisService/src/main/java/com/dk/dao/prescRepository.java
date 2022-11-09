@@ -10,4 +10,5 @@ public interface prescRepository extends JpaRepository<Prescription, Integer> {
 	
 	public Prescription findByPatientId(int patientId);
 
+	public Prescription findByPatientId(int id);
 }
