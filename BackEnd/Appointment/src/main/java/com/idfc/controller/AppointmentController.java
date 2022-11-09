@@ -19,45 +19,34 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/patient")
+@RequestMapping("/appointment")
 public class AppointmentController {
 
 	@Autowired
 	private AppointmentServiceImpl service;
 
-	@PostMapping("/addPatient")
-	public ResponseEntity<Object> addUser(@RequestBody Appointment appointment) {
+	@PostMapping("/addAppointment")
+	public ResponseEntity<Object> addAppointment(@RequestBody Appointment appointment) {
 		Appointment resUser = this.service.addAppointment(appointment);
 		if (resUser == null) {
-			return new ResponseEntity<Object>("User not add Sucessfully", HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>("Appointment not add Sucessfully", HttpStatus.CONFLICT);
 		}
 		return new ResponseEntity<Object>(resUser, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/")
-	public ResponseEntity<Object> getAllUsers() {
+	public ResponseEntity<Object> getAllAppointments() {
 		List<Appointment> appointments = this.service.getAppointment();
 		return new ResponseEntity<Object>(appointments, HttpStatus.OK);
 	}
 
-	@GetMapping("/{AppointmentId}")
-	public ResponseEntity<Object> getUserById(@PathVariable int patientId) {
+	@GetMapping("/{appointmentId}")
+	public ResponseEntity<Object> getAppointmentById(@PathVariable int patientId) {
 		Appointment resUser = this.service.getAppointmentById(patientId);
 		if (resUser == null) {
 			return new ResponseEntity<Object>("User not found", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Object>(resUser, HttpStatus.OK);
-	}
-
-	@PatchMapping("/appointmentId")
-	public ResponseEntity<Object> updatePassword(@RequestBody Map<String, Object> body) {
-		Appointment resUser = this.service.updateAppointment((Integer) body.get("appointmentId"), body.get("patientId").toString());
-
-		if (resUser == null) {
-			return new ResponseEntity<Object>("appointmentId updation failed", HttpStatus.NOT_ACCEPTABLE);
-		}
-
-		return new ResponseEntity<Object>("appointmentId updated sucessfully", HttpStatus.OK);
 	}
 
 	@PatchMapping("/appointmentDate")
@@ -86,7 +75,7 @@ public class AppointmentController {
 	public ResponseEntity<Object> udateAppointment(@RequestBody Appointment appointment) {
 		Appointment resUser = this.service.updateAppointment(appointment);
 		if (resUser == null) {
-			return new ResponseEntity<Object>("User not add Sucessfully", HttpStatus.CONFLICT);
+			return new ResponseEntity<Object>("Appointment not add Sucessfully", HttpStatus.CONFLICT);
 		}
 		return new ResponseEntity<Object>(resUser, HttpStatus.CREATED);
 	}
