@@ -9,6 +9,7 @@ import com.idfc.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -55,12 +57,24 @@ public class UserController {
 		return new ResponseEntity<Object>(resUser, HttpStatus.OK);
 	}
 	
-	@GetMapping("/email")
+	@GetMapping("/getUserByEmail")
 	public ResponseEntity<Object> getUserByEmail(@RequestParam String email){
 		User res = service.getUserByEmail(email);
 		if(res == null) {
 			return new ResponseEntity<Object>("User not found", HttpStatus.NOT_FOUND);
 		}
+		return new ResponseEntity<Object>(res, HttpStatus.OK);
+	}
+	
+	@GetMapping("/checkEmail")
+	public ResponseEntity<Object> checkEmailPresent(@RequestParam String email){
+		boolean res = service.checkEmail(email);
+		return new ResponseEntity<Object>(res, HttpStatus.OK);
+	}
+	
+	@GetMapping("/checkUserName")
+	public ResponseEntity<Object> checkUserNamePresent(@RequestParam String userName){
+		boolean res = service.checkUserNameExists(userName);
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}
 	
@@ -92,6 +106,20 @@ public class UserController {
 		String res = this.service.deleteUser(userId);
 		if(res == null) {
 			return new ResponseEntity<Object>("user not deleted !", HttpStatus.NOT_ACCEPTABLE);
+		}
+		return new ResponseEntity<Object>(res, HttpStatus.OK);
+	}
+	
+	@PostMapping("/login")
+	public ResponseEntity<Object> loginUser(@RequestBody Map<String, Object> body){
+		System.out.println(body.get("email"));
+		System.out.println(body.get("password"));
+		User res = service.loginUser(
+				body.get("email").toString(), 
+				body.get("password").toString()
+		);
+		if(res == null) {
+			return new ResponseEntity<Object>("User not found", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}

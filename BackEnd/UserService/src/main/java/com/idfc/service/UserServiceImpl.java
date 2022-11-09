@@ -31,6 +31,7 @@ public class UserServiceImpl implements UserService {
 		if(resEmail != null) {
 			return null;
 		}
+		user.setEmail(user.getEmail().toLowerCase());
 		return this.repo.save(user);
 	}
 
@@ -46,7 +47,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User getUserByEmail(String email) {
-		return repo.findByEmail(email);
+		return repo.findByEmail(email.toLowerCase());
 	}
 
 	@Override
@@ -97,6 +98,37 @@ public class UserServiceImpl implements UserService {
 	public String hello() {
 		// TODO Auto-generated method stub
 		return "Hello";
+	}
+
+	@Override
+	public boolean checkUserNameExists(String userName) {
+		// TODO Auto-generated method stub
+		User res = repo.findByUserName(userName);
+		if (res != null) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean checkEmail(String email) {
+		User res = repo.findByEmail(email.toLowerCase());
+		if(res != null) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public User loginUser(String email, String password) {
+		User resUser = repo.findByEmail(email.toLowerCase());
+		if(resUser == null ) {
+			return null;
+		}
+		if(resUser.getPassword().equals(password)) {
+			return resUser;
+		}
+		return null;
 	}
 
 	
