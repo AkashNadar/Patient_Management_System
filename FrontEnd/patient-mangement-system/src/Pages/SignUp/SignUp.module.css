@@ -1,10 +1,10 @@
 
 .form__container {
-    @apply block p-6 rounded-lg shadow-lg bg-white max-w-md;
+    @apply block p-6 rounded-lg shadow-lg bg-white max-w-lg mx-auto mt-24;
 }
 
 .form__div {
-    @apply mb-6;
+    @apply mb-6 my-6;
 }
 
 .test {
@@ -33,18 +33,34 @@
     @apply w-full
     px-6
     py-2.5
-    bg-blue-600
-    text-white
+    bg-white
+    text-cta
+    border-cta
     font-medium
     text-xs
     leading-tight
     uppercase
     rounded 
     shadow-md
-    hover:bg-blue-700 hover:shadow-lg
-    focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
-    active:bg-blue-800 active:shadow-lg
+    hover:bg-cta hover:shadow-lg hover:text-white
     transition
     duration-150
+    disabled:opacity-60 disabled:text-gray-400 disabled:hover:bg-white
     ease-in-out;
+}
+
+.valid {
+    @apply text-green-600 ;
+}
+
+.invalid {
+    @apply text-red-600 ;
+}
+
+.instructions {
+    @apply text-sm rounded bg-secondary text-white mt-2;
+}
+
+.error {
+    @apply bg-red-300 text-red-600 text-xl text-center rounded p-2 mb-3;
 }
