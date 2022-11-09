@@ -4,9 +4,8 @@ import java.util.List;
 import java.util.Optional;
 
 import com.dk.dao.prescRepository;
-import com.dk.model.Diagnosis;
 import com.dk.model.Prescription;
-
+import com.dk.model.Diagnosis;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,7 @@ public class prescServiceImple implements prescService {
 
 	@Override
 	public Prescription addPrescription(Prescription prescription) {
-		return repo.save(prescription);
+		return this.repo.save(prescription);
 	}
 	
 	@Override
@@ -43,8 +42,8 @@ public class prescServiceImple implements prescService {
 	
 	@Override
 	public String deletePrescription(int prescId) {
-		Optional<Prescription> resPrescription = repo.findById(prescId);
-		if(resPrescription.get() == null) {
+		Optional<Prescription> res = repo.findById(prescId);
+		if(res.get() == null) {
 			return null;
 		}
 		this.repo.deleteById(prescId);
@@ -65,4 +64,10 @@ public class prescServiceImple implements prescService {
 		resPrescription.setPrescDetails(prescription.getPrescDetails());
 		return repo.save(resPrescription);
 	}
+	
+	@Override
+	public Prescription getPrescriptionByPatientId(int patientId) {
+		return this.repo.findByPatientId(patientId);
+	}
+	
 }

@@ -36,26 +36,28 @@ public class diagServiceImple implements diagService {
 	}
 	
 	@Override
-	public Optional<Diagnosis> getDiagnosisById(int diagId) {
-		return this.repo.findById(diagId);
+	public Optional<Diagnosis> getDiagnosisById(long id) {
+		return this.repo.findById(id);   
 	}
 	
 	@Override
-	public String deleteDiagnosis(int diagId) {
-		Optional<Diagnosis> resDiagnosis = repo.findById(diagId);
+	public String deleteDiagnosis(long id) {
+		Optional<Diagnosis> resDiagnosis = repo.findById(id);
 		if(resDiagnosis.get() == null) {
 			return null;
 		}
-		this.repo.deleteById(diagId);
+		this.repo.deleteById(id);
 		return "Diagnosis deleted sucessfully";
 	}
 	
 	@Override
-	public Diagnosis updateDiagnosis(int diagId, String diagnosis) {
-		Optional<Diagnosis> resDiagnosis = repo.findById(diagId);
+	public Diagnosis updateDiagnosis(Diagnosis diagnosis, long id) {
+		Optional<Diagnosis> resDiagnosis = repo.findById(id);
 		if(resDiagnosis.get() == null) {
 			return null;
 		}
+		resDiagnosis.get().setDiagnosisTitle(diagnosis.getDiagnosisTitle());
+		resDiagnosis.get().setExpertComments(diagnosis.getExpertComments());
 		return this.repo.save(resDiagnosis.get());
 	}
 }

@@ -20,7 +20,6 @@ public class Diagnosis {
 	
 	@Column(nullable = false)
 	private String expertComments;
-	
 
 	public Diagnosis() {
 		super();
@@ -57,6 +56,5 @@ public class Diagnosis {
 	public void setExpertComments(String expertComments) {
 		this.expertComments = expertComments;
 	}
- 
 	
 }

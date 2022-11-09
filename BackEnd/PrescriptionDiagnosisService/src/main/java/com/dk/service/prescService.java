@@ -16,5 +16,7 @@ public interface prescService {
 	public List<Prescription> getPrescription();
 	
 	public Optional<Prescription> getPrescriptionById(int prescId);
+	
+	public Prescription getPrescriptionByPatientId(int patientId);
 		
 }

@@ -1,7 +1,7 @@
 package com.dk.controller;
 
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 
 import com.dk.model.Prescription;
 import com.dk.service.prescService;
@@ -45,6 +45,15 @@ public class prescController {
 	@GetMapping("/{prescId}")
 	public ResponseEntity<Object> getPrescriptionById(@PathVariable int prescId){
 		Prescription res = this.service.getPrescriptionById(prescId).get();
+		if(res == null) {
+			return new ResponseEntity<Object>("Prescription not found", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Object>(res, HttpStatus.OK);
+	}
+	
+	@GetMapping("/patient-id/{patientId}")
+	public ResponseEntity<Object> getPrescriptionByPatientId(@PathVariable int patientId){
+		Prescription res = this.service.getPrescriptionByPatientId(patientId);
 		if(res == null) {
 			return new ResponseEntity<Object>("Prescription not found", HttpStatus.NOT_FOUND);
 		}

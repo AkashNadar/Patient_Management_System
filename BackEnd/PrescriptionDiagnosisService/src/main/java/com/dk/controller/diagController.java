@@ -1,7 +1,7 @@
 package com.dk.controller;
 
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 
 import com.dk.model.Diagnosis;
 import com.dk.service.diagService;
@@ -43,30 +43,27 @@ public class diagController {
 		return new ResponseEntity<Object>(diagnosis, HttpStatus.OK);
 	}
 	
-	@GetMapping("/{diagId}")
-	public ResponseEntity<Object> getDiagnosisById(@PathVariable int diagId){
-		Diagnosis res = this.service.getDiagnosisById(diagId).get();
+	@GetMapping("/{id}")
+	public ResponseEntity<Object> getDiagnosisById(@PathVariable long id){
+		Diagnosis res = this.service.getDiagnosisById(id).get();
 		if(res == null) {
 			return new ResponseEntity<Object>("Diagnosis not found", HttpStatus.NOT_FOUND);
 		}
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}
 	
-	@DeleteMapping("/{diagId}")
-	public ResponseEntity<Object> deleteDiagnosis(@PathVariable int diagId){
-		String res = this.service.deleteDiagnosis(diagId);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Object> deleteDiagnosis(@PathVariable long id){
+		String res = this.service.deleteDiagnosis(id);
 		if(res == null) {
 			return new ResponseEntity<Object>("Diagnosis not deleted !", HttpStatus.NOT_ACCEPTABLE);
 		}
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}
 	
-	//to be Modified
-	@PutMapping("/")
-	public ResponseEntity<Object> updateDiagnosis(@RequestBody Map<String, Object> body){
-		Diagnosis res = this.service.updateDiagnosis(
-				(Integer)body.get("diagId"),
-				body.get("diagnosis").toString());
+	@PutMapping("/{id}")
+	public ResponseEntity<Object> updateDiagnosis(@RequestBody Diagnosis diagnosis,@PathVariable long id){
+		Diagnosis res = this.service.updateDiagnosis(diagnosis, id);
 		if(res == null) {
 			return new ResponseEntity<Object>("Diagnosis not updated", HttpStatus.NOT_ACCEPTABLE);
 		}
