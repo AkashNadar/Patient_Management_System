@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -21,9 +20,6 @@ public class Diagnosis {
 	
 	@Column(nullable = false)
 	private String expertComments;
-	
-	@OneToOne(mappedBy = "diagnosis")
-	private Prescription prescription;
 
 	public Diagnosis() {
 		super();
@@ -60,13 +56,5 @@ public class Diagnosis {
 	public void setExpertComments(String expertComments) {
 		this.expertComments = expertComments;
 	}
-
-	public Prescription getPrescription() {
-		return prescription;
-	}
-
-	public void setPrescription(Prescription prescription) {
-		this.prescription = prescription;
-	} 
 	
 }

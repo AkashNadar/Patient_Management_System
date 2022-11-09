@@ -11,10 +11,12 @@ public interface prescService {
 	
 	public String deletePrescription(int prescId);
 	
-	public Prescription updatePrescription(int prescId, String prescription);
+	public Prescription updatePrescription(Prescription prescription, int patientId);
 	
 	public List<Prescription> getPrescription();
 	
 	public Optional<Prescription> getPrescriptionById(int prescId);
+	
+	public Prescription getPrescriptionByPatientId(int patientId);
 		
 }

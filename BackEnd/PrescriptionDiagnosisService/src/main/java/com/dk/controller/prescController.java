@@ -1,7 +1,7 @@
 package com.dk.controller;
 
 import java.util.List;
-import java.util.Map;
+//import java.util.Map;
 
 import com.dk.model.Prescription;
 import com.dk.service.prescService;
@@ -51,6 +51,15 @@ public class prescController {
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}
 	
+	@GetMapping("/patient-id/{patientId}")
+	public ResponseEntity<Object> getPrescriptionByPatientId(@PathVariable int patientId){
+		Prescription res = this.service.getPrescriptionByPatientId(patientId);
+		if(res == null) {
+			return new ResponseEntity<Object>("Prescription not found", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Object>(res, HttpStatus.OK);
+	}
+	
 	@DeleteMapping("/{prescId}")
 	public ResponseEntity<Object> deletePrescription(@PathVariable int prescId){
 		String res = this.service.deletePrescription(prescId);
@@ -60,12 +69,9 @@ public class prescController {
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}
 	
-	//to be Modified
-	@PutMapping("/")
-	public ResponseEntity<Object> updatePrescription(@RequestBody Map<String, Object> body){
-		Prescription res = this.service.updatePrescription(
-				(Integer)body.get("prescId"),
-				body.get("prescription").toString());
+	@PutMapping("/{patientId}")
+	public ResponseEntity<Object> updatePrescription(@RequestBody Prescription prescription,@PathVariable int patientId){
+		Prescription res = this.service.updatePrescription(prescription, patientId);
 		if(res == null) {
 			return new ResponseEntity<Object>("Prescription not updated", HttpStatus.NOT_ACCEPTABLE);
 		}

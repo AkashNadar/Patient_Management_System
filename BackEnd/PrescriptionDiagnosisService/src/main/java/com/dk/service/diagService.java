@@ -9,12 +9,12 @@ public interface diagService {
 
 	public Diagnosis addDiagnosis(Diagnosis diagnosis);
 	
-	public String deleteDiagnosis(int diagId);
+	public String deleteDiagnosis(long id);
 	
-	public Diagnosis updateDiagnosis(int diagId, String diagnosis);
+	public Diagnosis updateDiagnosis(Diagnosis diagnosis,long id);
 	
 	public List<Diagnosis> getDiagnosis();
 	
-	public Optional<Diagnosis> getDiagnosisById(int diagId);
+	public Optional<Diagnosis> getDiagnosisById(long id);
 		
 }
