@@ -1,6 +1,9 @@
 package com.idfc.Appointment.service;
 
+import java.util.ArrayList;
+
 import java.util.List;
+
 
 import com.idfc.Appointment.dao.AppointmentRepository;
 import com.idfc.Appointment.model.Appointment;
@@ -45,8 +48,8 @@ public class AppointmentServiceImpl implements AppointmentService {
 	}
 	
 	@Override
-	public Appointment getAppointmentByDoctorEmail(String doctorEmail) {
-		return this.repo.findByDoctorEmail(doctorEmail);
+	public List<Appointment> getAppointmentByDoctorId(int doctorId) {
+		return this.repo.findByDoctorId(doctorId);
 	}
 
 /*
@@ -89,7 +92,7 @@ public class AppointmentServiceImpl implements AppointmentService {
 			return null;
 		}
 		resAppointment.setPatientId(appointment.getPatientId());
-		resAppointment.setDoctorEmail(appointment.getDoctorEmail());
+		resAppointment.setDoctorId(appointment.getDoctorId());
 		resAppointment.setAppointmentDate(appointment.getAppointmentDate());
 		resAppointment.setAppointmentTime(appointment.getAppointmentTime());
 		return this.repo.save(resAppointment);
@@ -103,5 +106,23 @@ public class AppointmentServiceImpl implements AppointmentService {
 		}
 		this.repo.deleteById(appointmentId);
 		return "Appointment deleted sucessfully";
+	}
+
+	@Override
+	public Object checkAppointmentAvailable(String date, int doctorId) {
+		List<Appointment> res = repo.findByAppointmentDateAndDoctorId(date, doctorId);
+		if(res.size() == 0) {
+			return true;
+		}
+		if(res.size() == 3) {
+			return false;
+		}
+//		Map<String, Boolean> bookedTimings = new HashMap<String, Boolean>();
+		List<String> bookedTimings = new ArrayList<>();
+		for(Appointment a : res) {
+//			bookedTimings.put(a.getAppointmentTime(), false);
+			bookedTimings.add(a.getAppointmentTime());
+		}
+		return bookedTimings;
 	}	
 }

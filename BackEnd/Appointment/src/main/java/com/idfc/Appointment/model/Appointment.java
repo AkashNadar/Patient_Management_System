@@ -21,7 +21,7 @@ public class Appointment {
 	private int patientId;
 	
 	@Column(nullable = false)
-	private String doctorEmail;
+	private int doctorId;
 	
 	@Column(nullable = false)
 	private String appointmentDate;
@@ -29,16 +29,17 @@ public class Appointment {
 	@Column(nullable = false)
 	private String appointmentTime;
 	
+	
 	public Appointment() {
 		super();
 		//TODO Auto-generated constructor stub
 	}
 
-	public Appointment(int appointmentId, int patientId, String doctorEmail, String appointmentDate, String appointmentTime) {
+	public Appointment(int appointmentId, int patientId, int doctorId, String appointmentDate, String appointmentTime) {
 		super();
 		this.appointmentId = appointmentId;
 		this.patientId = patientId;
-		this.doctorEmail = doctorEmail;
+		this.doctorId = doctorId;
 		this.appointmentDate = appointmentDate;
 		this.appointmentTime = appointmentTime;
 	}
@@ -59,12 +60,12 @@ public class Appointment {
 		this.patientId = patientId;
 	}
 
-	public String getDoctorEmail() {
-		return doctorEmail;
+	public int getDoctorId() {
+		return doctorId;
 	}
 
-	public void setDoctorEmail(String doctorEmail) {
-		this.doctorEmail = doctorEmail;
+	public void setDoctorId(int doctorId) {
+		this.doctorId = doctorId;
 	}
 
 	public String getAppointmentDate() {

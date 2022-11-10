@@ -15,7 +15,7 @@ public interface AppointmentService {
 	
 	public Appointment getAppointmentByPatientId(int patientId);
 	
-	public Appointment getAppointmentByDoctorEmail(String doctorEmail);
+	public List<Appointment> getAppointmentByDoctorId(int doctorId);
 	
 //	public Appointment updateAppointment(int appointmentId, String patientId);
 	
@@ -26,5 +26,7 @@ public interface AppointmentService {
 	public Appointment updateAppointment(Appointment appointment,int appointmentId);
 	
 	public String deleteAppointment(int appointmentId);
+	
+	public Object checkAppointmentAvailable(String date, int docotorId);
 
 }
