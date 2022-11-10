@@ -1,6 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function Card({ docInfo }) {
+
+    const navigate = useNavigate();
+
+    const bookAppointment = (e) => {
+        e.preventDefault();
+        navigate("/bookAppointment", { state: docInfo });
+    }
+
     return (
         <section>
             <div className="flex justify-center p-2">
@@ -16,7 +25,7 @@ function Card({ docInfo }) {
                         </p>
                         <p className="text-gray-600 text-xs">{docInfo.phoneNo}</p>
                         <div className='flex'>
-                            <button type="button" className="card__button">Book Appointment</button>
+                            <button type="button" className="card__button" onClick={bookAppointment}>Book Appointment</button>
                         </div>
                     </div>
                 </div>
