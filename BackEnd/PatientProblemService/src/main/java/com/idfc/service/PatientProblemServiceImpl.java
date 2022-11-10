@@ -31,7 +31,7 @@ public class PatientProblemServiceImpl implements PatientProblemService {
 	}
 	
 	@Override
-	public PatientProblem getPatientProblemByUserId(long id) {
+	public PatientProblem getPatientProblemByPatientId(long id) {
 		return repo.findByPatientId(id);
 	}
 
@@ -52,10 +52,5 @@ public class PatientProblemServiceImpl implements PatientProblemService {
 		this.repo.deleteById(res.getProblemId());
 		return "Patient Problem deleted sucessfully";
 	}
-
-	
-
-	
-
 	
 }
