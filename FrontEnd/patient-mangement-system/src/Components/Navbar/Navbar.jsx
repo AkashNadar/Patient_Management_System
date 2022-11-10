@@ -1,6 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import s from './Navbar.module.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutReducer, selectUser } from 'Features/userSlice.js';
+
 function Navbar() {
+
+    const [user, setUser] = useState(useSelector(selectUser));
+
+    // useEffect(() => {
+
+    // }, [user])
+
+    const dispatch = useDispatch();
+
+    const logoutFun = (e) => {
+        e.preventDefault();
+        dispatch(logoutReducer());
+    }
+
+    const signUpLoginButton = <button type="button" className={s.nav__button}>Login / SignUp</button>;
+
+    const profile = <h1 onClick={logoutFun}>User Profile</h1>
+
     return (
         <nav className={s.nav__container}>
             <div className={s.nav__div__container}>
@@ -21,7 +42,9 @@ function Navbar() {
                             <a href="fdf" className={s.nav__li}>Pricing</a>
                         </li>
                         <li>
-                            <button type="button" className={s.nav__button}>Login / SignUp</button>
+                            {
+                                user ? profile : signUpLoginButton
+                            }
                         </li>
                     </ul>
                 </div>

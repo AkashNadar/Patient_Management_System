@@ -2,6 +2,9 @@ import { faCheck, faInfoCircle, faTimes } from '@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useEffect, useRef, useState } from 'react'
 import { login } from 'Api/userApi.js';
+import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { loginReducer } from 'Features/userSlice.js';
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
@@ -38,6 +41,8 @@ function Login() {
         setErrMsg('');
     }, [email, pwd])
 
+    const dispatch = useDispatch();
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -45,8 +50,12 @@ function Login() {
                 email: email,
                 password: pwd
             });
-            console.log(res);
+            // console.log(res);
             setSuccess(true);
+            console.log("here");
+            console.log(res);
+            dispatch(loginReducer(res));
+
         } catch (error) {
             const err = JSON.parse(error.message);
             if (err.status === 404) {
@@ -123,8 +132,7 @@ function Login() {
             <p className='pt-5 text-lg'>
                 Don't Have Account?<br />
                 <span className="line">
-                    {/*put router link here*/}
-                    <a href="#">Sign Up</a>
+                    <Link to='/signUp'>Sign Up</Link>
                 </span>
             </p>
         </section>

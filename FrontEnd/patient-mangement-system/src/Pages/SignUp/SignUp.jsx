@@ -4,6 +4,7 @@ import { faCheck, faTimes, faInfoCircle } from "@fortawesome/free-solid-svg-icon
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import s from "./SignUp.module.css";
 import { checkUserNamePresent, checkEmail, addUser } from 'Api/userApi.js';
+import { Link } from 'react-router-dom';
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/;
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -96,7 +97,7 @@ function SignUp() {
                     <section className={s.form__container}>
                         <h1 className='text-3xl mb-4'>Success!</h1>
                         <p>
-                            <a href="#">Sign In</a>
+                            <Link to='/login'>Sign In</Link>
                         </p>
                     </section>
                 )
@@ -218,8 +219,7 @@ function SignUp() {
                         <p className='pt-5 text-lg'>
                             Already registered?<br />
                             <span className="line">
-                                {/*put router link here*/}
-                                <a href="#">Sign In</a>
+                                <Link to='/login'>Sign In</Link>
                             </span>
                         </p>
                     </section>
