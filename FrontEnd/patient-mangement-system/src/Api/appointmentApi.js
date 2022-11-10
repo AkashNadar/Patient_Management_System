@@ -13,3 +13,12 @@ export const checkAppointment = async (date, docId) => {
         throw new Error(error.message);
     }
 }
+
+export const addAppointment = async (data) => {
+    try {
+        const res = await axios.post(`${URL}/`, data);
+        return res.data;
+    } catch (error) {
+        throw new Error(JSON.stringify(error.response));
+    }
+}

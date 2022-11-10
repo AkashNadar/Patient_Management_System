@@ -11,11 +11,11 @@ function App() {
 
   return (
     <div>
-      <header>
-        <Navbar />
-      </header>
       <article>
         <BrowserRouter>
+          <header>
+            <Navbar />
+          </header>
           <Router />
         </BrowserRouter>
       </article>

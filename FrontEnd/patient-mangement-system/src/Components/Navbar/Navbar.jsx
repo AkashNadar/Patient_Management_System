@@ -2,25 +2,42 @@ import React, { useEffect, useState } from 'react'
 import s from './Navbar.module.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutReducer, selectUser } from 'Features/userSlice.js';
+import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
 
-    const [user, setUser] = useState(useSelector(selectUser));
+    // const [user, setUser] = useState(useSelector(selectUser));
+    const user = useSelector(state => state.user);
+    const [signedIn, setSignedIn] = useState(false);
+    const [btn, setBtn] = useState(signUpLoginButton);
+    const navigate = useNavigate();
+    useEffect(() => {
+        console.log(user);
+        console.log("triggerd outSide");
+        if (user) {
+            setSignedIn(true);
+            console.log("triggered inside");
 
-    // useEffect(() => {
-
-    // }, [user])
+        }
+    }, [user])
 
     const dispatch = useDispatch();
 
     const logoutFun = (e) => {
         e.preventDefault();
         dispatch(logoutReducer());
+        setSignedIn(false);
+        navigate("/login");
     }
 
-    const signUpLoginButton = <button type="button" className={s.nav__button}>Login / SignUp</button>;
+    const signUpHandler = (e) => {
+        e.preventDefault();
+        navigate("/signUP");
+    }
 
-    const profile = <h1 onClick={logoutFun}>User Profile</h1>
+    const signUpLoginButton = <button type="button" className={s.nav__button} onClick={signUpHandler}>Login / SignUp</button>;
+
+    const signOutButton = <button onClick={logoutFun} className={s.nav__button}>LogOut</button>
 
     return (
         <nav className={s.nav__container}>
@@ -43,7 +60,7 @@ function Navbar() {
                         </li>
                         <li>
                             {
-                                user ? profile : signUpLoginButton
+                                user ? signOutButton : signUpLoginButton
                             }
                         </li>
                     </ul>

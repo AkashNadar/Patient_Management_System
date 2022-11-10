@@ -5,11 +5,14 @@ import { login } from 'Api/userApi.js';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { loginReducer } from 'Features/userSlice.js';
+import { useNavigate } from 'react-router-dom';
 
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 const PWD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 
 function Login() {
+
+    const navigate = useNavigate();
 
     const userRef = useRef();
     const errRef = useRef();
@@ -55,7 +58,7 @@ function Login() {
             console.log("here");
             console.log(res);
             dispatch(loginReducer(res));
-
+            navigate("/dashboard");
         } catch (error) {
             const err = JSON.parse(error.message);
             if (err.status === 404) {

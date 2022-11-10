@@ -4,6 +4,9 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import s from './Appointment.module.css'
 import { useLocation } from 'react-router-dom';
+import { addPatientProblem } from 'Api/patientProblemApi';
+import { useSelector } from 'react-redux';
+import { selectUser } from 'Features/userSlice';
 
 function Appointment() {
 
@@ -17,6 +20,7 @@ function Appointment() {
     const [errMsg, setErrMsg] = useState('');
     const [availTime, setAvailTime] = useState({ "1pm": true, "3pm": true, "5pm": true });
     const [docData, setDocData] = useState(location.state);
+    const [user, setUser] = useState(useSelector(selectUser));
 
     const arr = [2, 3, 5]
 
@@ -26,7 +30,7 @@ function Appointment() {
             console.log(location.state);
             checkAppointment(formattedDate, docData.userId)
                 .then((res) => {
-                    console.log(res.data);
+                    setAppointmentAvailable(true);
                     if (typeof res.data === 'boolean') {
                         setErrMsg('');
                         setAvailTime((prevState) => ({
@@ -67,9 +71,21 @@ function Appointment() {
 
     const bookAppointment = (e) => {
         e.preventDefault();
-        console.log(symptoms);
-        console.log(slot);
-        console.log(selectedDate);
+        // console.log(symptoms);
+        // console.log(slot);
+        // console.log(selectedDate);
+        // try {
+        //     if (appointmentAvailable) {
+        //         const problemRes = await addPatientProblem({
+        //             doctorId: docData.userId,
+        //             pastMedHist: pastMedHist,
+        //             patientId: 
+        //         })
+        //     }
+        // } catch (error) {
+
+        // }
+        console.log(user);
     }
 
     return (
