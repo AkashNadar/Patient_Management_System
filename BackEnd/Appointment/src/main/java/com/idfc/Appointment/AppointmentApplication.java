@@ -20,7 +20,7 @@ public class AppointmentApplication {
 	public Docket allApis() {
 		return new Docket(DocumentationType.SWAGGER_2)
 				.select()
-				.apis(RequestHandlerSelectors.basePackage("com.idfc"))
+				.apis(RequestHandlerSelectors.basePackage("com.idfc.Appointment"))
 				.build();
 	}
 
