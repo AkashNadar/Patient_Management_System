@@ -41,7 +41,7 @@ public class PatientproblemController {
 	
 	@GetMapping("/{patientId}")
 	public ResponseEntity<Object> getPatientProblemByPatientId(@PathVariable long patientId){
-		PatientProblem resUser = this.service.getPatientProblemByUserId(patientId);
+		PatientProblem resUser = this.service.getPatientProblemByPatientId(patientId);
 		if(resUser == null) {
 			return new ResponseEntity<Object>("patient problem not found", HttpStatus.NOT_FOUND);
 		}
