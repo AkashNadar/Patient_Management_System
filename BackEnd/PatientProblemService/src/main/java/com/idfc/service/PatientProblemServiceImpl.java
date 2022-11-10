@@ -31,26 +31,35 @@ public class PatientProblemServiceImpl implements PatientProblemService {
 	}
 	
 	@Override
-	public PatientProblem getPatientProblemByPatientId(long id) {
+	public List<PatientProblem> getPatientProblemByPatientId(long id) {
 		return repo.findByPatientId(id);
 	}
-
+	
+	
+// Work to be done 
 	@Override
 	public PatientProblem updatePatientProblem(PatientProblem patientProblem, long patientId) {
-		PatientProblem resPatientProblem = repo.findByPatientId(patientId);
-		if(resPatientProblem == null) {
-			return null;
-		}
-		resPatientProblem.setPastMedHist(patientProblem.getPastMedHist());
-		resPatientProblem.setSympoms(patientProblem.getSympoms());
-		return repo.save(resPatientProblem);
+//		PatientProblem resPatientProblem = repo.findByPatientId(patientId);
+//		if(resPatientProblem == null) {
+//			return null;
+//		}
+//		resPatientProblem.setPastMedHist(patientProblem.getPastMedHist());
+//		resPatientProblem.setSympoms(patientProblem.getSympoms());
+//		return repo.save(resPatientProblem);
+		return null;
+	}
+
+//	Work is pending 
+	@Override
+	public String deletePatientProblem(long patientId) {
+//		PatientProblem res = repo.findByPatientId(patientId);
+//		this.repo.deleteById(res.getProblemId());
+		return "Patient Problem deleted sucessfully";
 	}
 
 	@Override
-	public String deletePatientProblem(long patientId) {
-		PatientProblem res = repo.findByPatientId(patientId);
-		this.repo.deleteById(res.getProblemId());
-		return "Patient Problem deleted sucessfully";
+	public List<PatientProblem> getPatientProblemByDoctorId(long doctorId) {
+		return repo.findByDoctorId(doctorId);
 	}
 	
 }

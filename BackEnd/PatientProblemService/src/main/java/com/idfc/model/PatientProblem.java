@@ -26,6 +26,25 @@ public class PatientProblem {
 	@Column(nullable = false)
 	private String pastMedHist;
 	
+	@Column(nullable = false)
+	private long doctorId;
+	
+	public String getSymptoms() {
+		return symptoms;
+	}
+
+	public void setSymptoms(String symptoms) {
+		this.symptoms = symptoms;
+	}
+
+	public long getDoctorId() {
+		return doctorId;
+	}
+
+	public void setDoctorId(long doctorId) {
+		this.doctorId = doctorId;
+	}
+
 	public long getProblemId() {
 		return id;
 	}
@@ -42,14 +61,6 @@ public class PatientProblem {
 		this.patientId = patientId;
 	}
 
-	public String getSympoms() {
-		return symptoms;
-	}
-
-	public void setSympoms(String sympoms) {
-		this.symptoms = sympoms;
-	}
-
 	public String getPastMedHist() {
 		return pastMedHist;
 	}
@@ -63,12 +74,13 @@ public class PatientProblem {
 		//TODO Auto-generated constructor stub
 	}
 
-	public PatientProblem(long id, long patientId, String sympoms, String pastMedHist) {
+	public PatientProblem(long id, long patientId, String symptoms, String pastMedHist, long doctorId) {
 		super();
 		this.id = id;
 		this.patientId = patientId;
-		this.symptoms = sympoms;
+		this.symptoms = symptoms;
 		this.pastMedHist = pastMedHist;
+		this.doctorId = doctorId;
 	}
 	
 	

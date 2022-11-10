@@ -14,7 +14,9 @@ public interface PatientProblemService {
 	
 	public Optional<PatientProblem> getPatientProblemById(long id);
 	
-	public PatientProblem getPatientProblemByPatientId(long id);
+	public List<PatientProblem> getPatientProblemByPatientId(long id);
+	
+	public List<PatientProblem> getPatientProblemByDoctorId(long doctorId);
 	
 	public PatientProblem updatePatientProblem(PatientProblem patientProblem, long patientId);
 	
