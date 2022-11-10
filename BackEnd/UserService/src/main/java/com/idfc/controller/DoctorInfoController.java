@@ -8,6 +8,7 @@ import com.idfc.service.DoctorInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,8 +16,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/doctorInfo")
 public class DoctorInfoController {
@@ -33,9 +36,12 @@ public class DoctorInfoController {
 		return new ResponseEntity<Object>(res, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/")
-	public ResponseEntity<Object> getAllDoctorInfo(){
-		List<DoctorInfo> res = this.service.getAllDoctorInfo();
+	@GetMapping("/specialization")
+	public ResponseEntity<Object> getAllDoctorInfo(@RequestParam String specialization){
+		List<DoctorInfo> res = this.service.getAllDoctorInfo(specialization);
+		if(res.size() == 0) {
+			return new ResponseEntity<Object>("Result not found!", HttpStatus.NOT_FOUND);
+		}
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}
 

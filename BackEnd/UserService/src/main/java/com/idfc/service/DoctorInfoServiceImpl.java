@@ -33,9 +33,12 @@ public class DoctorInfoServiceImpl implements DoctorInfoService {
 	}
 
 	@Override
-	public List<DoctorInfo> getAllDoctorInfo() {
+	public List<DoctorInfo> getAllDoctorInfo(String specialization) {
 		// TODO Auto-generated method stub
-		return repo.findAll();
+		if(specialization.equals("all")) {
+			return repo.findAll();
+		}
+		return repo.findBySpecialization(specialization);
 	}
 
 	@Override

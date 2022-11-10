@@ -7,13 +7,13 @@ import com.idfc.model.DoctorInfo;
 
 public interface DoctorInfoService {
 
-public DoctorInfo addDoctorInfo(DoctorInfo doctorInfo);
+	public DoctorInfo addDoctorInfo(DoctorInfo doctorInfo);
 	
 	public Optional<DoctorInfo> getInfoById(long id);
 	
 	public DoctorInfo getDoctorInfoByUserId(long userId);
 	
-	public List<DoctorInfo> getAllDoctorInfo();
+	public List<DoctorInfo> getAllDoctorInfo(String specialization);
 	
 	public DoctorInfo updateDoctorInfo(DoctorInfo doctorInfo, long id);
 	

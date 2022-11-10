@@ -112,8 +112,6 @@ public class UserController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<Object> loginUser(@RequestBody Map<String, Object> body){
-		System.out.println(body.get("email"));
-		System.out.println(body.get("password"));
 		User res = service.loginUser(
 				body.get("email").toString(), 
 				body.get("password").toString()
