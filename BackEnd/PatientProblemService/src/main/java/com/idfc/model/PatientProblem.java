@@ -28,46 +28,6 @@ public class PatientProblem {
 	
 	@Column(nullable = false)
 	private long doctorId;
-	
-	public String getSymptoms() {
-		return symptoms;
-	}
-
-	public void setSymptoms(String symptoms) {
-		this.symptoms = symptoms;
-	}
-
-	public long getDoctorId() {
-		return doctorId;
-	}
-
-	public void setDoctorId(long doctorId) {
-		this.doctorId = doctorId;
-	}
-
-	public long getProblemId() {
-		return id;
-	}
-
-	public void setProblemId(int problemId) {
-		this.id = problemId;
-	}
-
-	public long getPatientId() {
-		return patientId;
-	}
-
-	public void setPatientId(long patientId) {
-		this.patientId = patientId;
-	}
-
-	public String getPastMedHist() {
-		return pastMedHist;
-	}
-
-	public void setPastMedHist(String pastMedHist) {
-		this.pastMedHist = pastMedHist;
-	}
 
 	public PatientProblem() {
 		super();
@@ -82,6 +42,48 @@ public class PatientProblem {
 		this.pastMedHist = pastMedHist;
 		this.doctorId = doctorId;
 	}
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public long getPatientId() {
+		return patientId;
+	}
+
+	public void setPatientId(long patientId) {
+		this.patientId = patientId;
+	}
+
+	public String getSymptoms() {
+		return symptoms;
+	}
+
+	public void setSymptoms(String symptoms) {
+		this.symptoms = symptoms;
+	}
+
+	public String getPastMedHist() {
+		return pastMedHist;
+	}
+
+	public void setPastMedHist(String pastMedHist) {
+		this.pastMedHist = pastMedHist;
+	}
+
+	public long getDoctorId() {
+		return doctorId;
+	}
+
+	public void setDoctorId(long doctorId) {
+		this.doctorId = doctorId;
+	}
+	
+	
 	
 	
 }

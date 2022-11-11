@@ -23,6 +23,9 @@ public class Prescription {
 	private int patientId;
 	
 	@Column(nullable = false)
+	private int patientProblemId;
+	
+	@Column(nullable = false)
 	private String prescDetails;
 	
 	@OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
@@ -33,10 +36,11 @@ public class Prescription {
 		//TODO Auto-generated constructor stub
 	}
 
-	public Prescription(int prescId, int patientId, String prescDetails, Diagnosis diagnosis) {
+	public Prescription(int prescId, int patientId, int patientProblemId, String prescDetails, Diagnosis diagnosis) {
 		super();
 		this.prescId = prescId;
 		this.patientId = patientId;
+		this.patientProblemId = patientProblemId;
 		this.prescDetails = prescDetails;
 		this.diagnosis = diagnosis;
 	}
@@ -57,6 +61,14 @@ public class Prescription {
 		this.patientId = patientId;
 	}
 
+	public int getPatientProblemId() {
+		return patientProblemId;
+	}
+
+	public void setPatientProblemId(int patientProblemId) {
+		this.patientProblemId = patientProblemId;
+	}
+
 	public String getPrescDetails() {
 		return prescDetails;
 	}
@@ -72,5 +84,7 @@ public class Prescription {
 	public void setDiagnosis(Diagnosis diagnosis) {
 		this.diagnosis = diagnosis;
 	}
+
+	
 	
 }
