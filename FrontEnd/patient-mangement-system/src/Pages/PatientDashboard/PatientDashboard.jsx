@@ -10,7 +10,6 @@ function PatientDashboard() {
     const [listLength, setListLength] = useState(0);
 
     useEffect(() => {
-        console.log("in here ");
         getAllDoctorInfo(specialization)
             .then((res) => {
                 setDocList(res);

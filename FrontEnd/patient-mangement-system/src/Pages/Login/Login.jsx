@@ -55,8 +55,6 @@ function Login() {
             });
             // console.log(res);
             setSuccess(true);
-            console.log("here");
-            console.log(res);
             dispatch(loginReducer(res));
             navigate("/dashboard");
         } catch (error) {

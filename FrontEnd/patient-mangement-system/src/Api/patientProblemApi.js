@@ -10,3 +10,12 @@ export const addPatientProblem = async (data) => {
         throw new Error(JSON.stringify(error.response));
     }
 }
+
+export const getPatientProblemByDoctorId = async (docId) => {
+    try {
+        const res = await axios.get(`${URL}/getPatientByDoctorId/?doctorId=${docId}`);
+        return res.data
+    } catch (error) {
+        throw new Error(JSON.stringify(error.response));
+    }
+}

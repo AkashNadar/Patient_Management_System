@@ -12,3 +12,21 @@ export const getAllDoctorInfo = async (specialization) => {
     }
 
 }
+
+export const getDoctorInfoByUserId = async (userId) => {
+    try {
+        const res = await axios.get(`${URL}/user/${userId}`);
+        return res.data;
+    } catch (error) {
+        throw new Error(JSON.stringify(error.response));
+    }
+}
+
+export const addDoctorProfile = async (docProfileData) => {
+    try {
+        const res = await axios.post(`${URL}/`, docProfileData);
+        return res.data;
+    } catch (error) {
+        throw new Error(JSON.stringify(error.response));
+    }
+}

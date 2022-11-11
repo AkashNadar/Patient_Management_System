@@ -9,15 +9,10 @@ function Navbar() {
     // const [user, setUser] = useState(useSelector(selectUser));
     const user = useSelector(state => state.user);
     const [signedIn, setSignedIn] = useState(false);
-    const [btn, setBtn] = useState(signUpLoginButton);
     const navigate = useNavigate();
     useEffect(() => {
-        console.log(user);
-        console.log("triggerd outSide");
-        if (user) {
+        if (user.user !== null) {
             setSignedIn(true);
-            console.log("triggered inside");
-
         }
     }, [user])
 
@@ -60,7 +55,7 @@ function Navbar() {
                         </li>
                         <li>
                             {
-                                user ? signOutButton : signUpLoginButton
+                                signedIn ? signOutButton : signUpLoginButton
                             }
                         </li>
                     </ul>
