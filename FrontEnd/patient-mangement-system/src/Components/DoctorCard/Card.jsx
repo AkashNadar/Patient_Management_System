@@ -1,13 +1,16 @@
+import { selectUser } from 'Features/userSlice';
 import React from 'react'
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 function Card({ docInfo }) {
 
     const navigate = useNavigate();
+    const user = useSelector(selectUser);
 
     const bookAppointment = (e) => {
         e.preventDefault();
-        navigate("/bookAppointment", { state: docInfo });
+        navigate(`/bookAppointment/${user.id}`, { state: docInfo });
     }
 
     return (

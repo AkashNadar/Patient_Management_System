@@ -19,3 +19,5 @@ export const addPatientProfile = async (profileData) => {
         throw new Error(JSON.stringify(error.response));
     }
 }
+
+// export const getPatientInfoByProfile

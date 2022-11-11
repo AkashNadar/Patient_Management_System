@@ -19,3 +19,12 @@ export const getPatientProblemByDoctorId = async (docId) => {
         throw new Error(JSON.stringify(error.response));
     }
 }
+
+export const getProblemByProblemId = async (problemId) => {
+    try {
+        const res = await axios.get(`${URL}/getProblemByProblemId/${problemId}`);
+        return res.data;
+    } catch (error) {
+        throw new Error(JSON.stringify(error.response));
+    }
+}

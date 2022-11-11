@@ -79,4 +79,13 @@ public class PatientproblemController {
 		}
 		return new ResponseEntity<Object>(res, HttpStatus.OK);
 	}
+	
+	@GetMapping("/getProblemByProblemId/{problemId}")
+	public ResponseEntity<Object> getPatientProbjemByProblemId(@PathVariable long problemId){
+		PatientProblem res = service.getPatientProblemById(problemId).get();
+		if(res == null) {
+			return new ResponseEntity<Object>("patient problem not found", HttpStatus.NOT_FOUND);
+		}
+		return new ResponseEntity<Object>(res, HttpStatus.OK);
+	}
 }

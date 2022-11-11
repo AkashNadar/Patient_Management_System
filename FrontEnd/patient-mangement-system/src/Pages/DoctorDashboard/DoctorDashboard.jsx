@@ -17,7 +17,6 @@ function DoctorDashboard() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log("Here");
         getPatientProblemByDoctorId(user.id)
             .then((res) => {
                 setPatientProblemList(res);

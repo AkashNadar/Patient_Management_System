@@ -1,3 +1,4 @@
+import { getProblemByProblemId } from 'Api/patientProblemApi';
 import { addPrescription } from 'Api/prescriptionApi';
 import React, { useEffect, useState } from 'react'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
@@ -13,9 +14,11 @@ function Diagnose() {
     const [diagnosisTitle, setDiagnosisTitle] = useState('');
     const [expertComments, setExpertComments] = useState('');
     const [prescriptionDetails, setPrescriptionDetails] = useState('');
-    // useEffect(() => {
 
-    // }, [third])
+    // const [patientProblem, setPatientProblem] = useState({})
+
+    // useEffect(() => {
+    // }, [])
 
     const prescribePatient = async (e) => {
         e.preventDefault();
@@ -46,6 +49,8 @@ function Diagnose() {
             </div>
             <div className='form__div'>
                 Patient Problem
+                <p>{patientProblem.symptoms}</p>
+                <p>{patientProblem.pastMedHist}</p>
             </div>
             <div className='form__div'>
                 Appointement Info

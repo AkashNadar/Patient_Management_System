@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import s from './Appointment.module.css'
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { addPatientProblem } from 'Api/patientProblemApi';
 import { useSelector } from 'react-redux';
 import { selectUser } from 'Features/userSlice';
@@ -13,6 +13,7 @@ function Appointment() {
 
     const location = useLocation();
     const navigate = useNavigate();
+    const userId = useParams();
 
     const [selectedDate, setSelectedDate] = useState(null);
     const [slot, setSlot] = useState('');
@@ -21,7 +22,7 @@ function Appointment() {
 
     const [availTime, setAvailTime] = useState({ "1pm": true, "3pm": true, "5pm": true });
 
-    const [patientProfile, setPatientProfile] = useState(null);
+    const [patientProfile, setPatientProfile] = useState({});
     const [profileError, setProfileError] = useState('');
 
     const [user, setUser] = useState(useSelector(selectUser));
@@ -32,15 +33,16 @@ function Appointment() {
     const [appointmentAvailable, setAppointmentAvailable] = useState(false);
     const [errMsg, setErrMsg] = useState('');
 
-    const arr = [2, 3, 5]
 
     useEffect(() => {
-        getPatientProfileByUserId(user.id)
+        console.log(userId.userId);
+        getPatientProfileByUserId(userId.userId)
             .then((res) => {
                 setPatientProfile(res);
+                setProfileError('');
             })
             .catch((err) => {
-                setPatientProfile(null)
+                setPatientProfile({})
                 setProfileError('Please Set Your profile');
                 throw new Error(JSON.stringify(err.message));
             })
@@ -98,8 +100,9 @@ function Appointment() {
         // console.log(symptoms);
         // console.log(slot);
         // console.log(selectedDate);
+
         try {
-            if (appointmentAvailable && patientProfile !== null) {
+            if (appointmentAvailable && profileError.length === 0) {
                 const problemRes = await addPatientProblem({
                     doctorId: docData.userId,
                     patientId: user.id,
@@ -123,7 +126,7 @@ function Appointment() {
             console.log(JSON.parse(error.message));
 
         }
-        console.log(user);
+
     }
 
     const handelProfile = (e) => {

@@ -8,16 +8,13 @@ import PatientProfile from 'Pages/UserProfile/PatientProfile';
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-/**
- * Routes component containing routes for the whole application
- * @returns {JSX}
- */
+
 const Router = () => (
     <Routes>
         <Route exact path='/login' element={<Login />} />
         <Route exact path='/signUp' element={<SignUp />} />
         <Route exact path='/dashboard' element={<Dashboard />} />
-        <Route exact path='/bookAppointment' element={<Appointment />} />
+        <Route exact path='/bookAppointment/:userId' element={<Appointment />} />
         <Route exact path='/diagnose/:patientProblemId' element={<Diagnose />} />
         <Route exact path='/editPatientProfile/:userId' element={<PatientProfile />} />
         <Route exact path='/editDoctorProfile/:userId' element={<DoctorProfile />} />
